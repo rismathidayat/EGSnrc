@@ -109,10 +109,11 @@ exec 3>>$basename.egsparallel
 log "BEGIN $0"
 
 ### set scheduler job name (skip leading non alnum chars, maximum 14 characters)
-jobname=$(echo "${basename}[$nthread]" | sed 's/^[^[:alnum:]]*//')
+jobname=$(echo "${basename}[$nthread]")
 trim=$(( $(echo $jobname | wc -c) - 14 ))
 if [ $trim -gt 0 ]; then
     jobname=$(echo $jobname | cut -c $trim-)
+    jobname=$(echo $jobname | sed 's/^[^[:alnum:]]*//')
 fi
 log "job name: $jobname"
 
